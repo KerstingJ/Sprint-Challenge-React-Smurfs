@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Route } from 'react-router-dom';
+
 
 import './App.css';
+import Header from './components/Header'
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
 
-export function App(props) {
+export default function App(props) {
 
   const [smurfs, setSmurfs] = useState([]);
 
@@ -21,8 +24,16 @@ export function App(props) {
   // You'll need to make sure you have the right properties on state and pass them down to props.
   return (
     <div className="App">
-      <SmurfForm />
-      <Smurfs smurfs={smurfs} />
+      <Header />
+      <Route 
+        exact path="/"
+        render={() =><Smurfs setSmurfs={setSmurfs} smurfs={smurfs} />}
+        />
+      <Route 
+        path="/smurf-form"
+        render={() => <SmurfForm setSmurfs={setSmurfs} />}
+        />
+      
     </div>
   );
 }
